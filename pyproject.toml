@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "BeterFunction"
+version = "1.0.0"
+keywords = ["Pycord BetterFunctions"]
+authors = [
+    {name = "Marciel404"}
+]
+description = """
+:A simple library for add new functions the Pycord
+"""
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Natural Language :: Portuguese",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+
+
+[tool.setuptools]
+packages = [
+    "BetterFunctions",
+    "hexacolors.colors",
+    "hexacolors.offline",
+    "hexacolors.online",
+    "hexacolors.online.client"
+]
+
+[project.urls]
+Homepage="https://github.com/Marciel404/hexacolors"
