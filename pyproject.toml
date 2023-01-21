@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "BeterFunction"
+name = "NewFunctionsPYC"
 version = "1.0.0"
 keywords = ["Pycord BetterFunctions"]
 authors = [
@@ -14,7 +14,7 @@ description = """
 """
 readme = "README.md"
 license = {text = "MIT"}
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Intended Audience :: Developers",
@@ -31,12 +31,10 @@ classifiers = [
 
 [tool.setuptools]
 packages = [
-    "BetterFunctions",
-    "hexacolors.colors",
-    "hexacolors.offline",
-    "hexacolors.online",
-    "hexacolors.online.client"
+    "NewFunctionsPYC",
+    "NewFunctionsPYC.client",
+    "NewFunctionsPYC.embeds",
 ]
 
 [project.urls]
-Homepage="https://github.com/Marciel404/hexacolors"
+Homepage="https://github.com/Marciel404/NewFunctionsPYC"
