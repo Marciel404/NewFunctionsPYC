@@ -3,6 +3,12 @@
 :A simple library for add new functions the Pycord
 
 ## Usage:
+### install with pip
+
+```shell
+pip install -U git+https://github.com/Marciel404/NewFunctionsPYC
+```
+
 ### Import on your code:
 
 ```python
