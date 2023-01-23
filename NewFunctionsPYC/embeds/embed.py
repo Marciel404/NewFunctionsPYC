@@ -1,6 +1,6 @@
 import discord
 
-class embedBuilder(discord.Embed):
+class EmbedBuilder(discord.Embed):
     
     def set_title(self, title: str):
         self.title = str(title)
@@ -22,4 +22,5 @@ class embedBuilder(discord.Embed):
 
     def remove_colour(self):
         self.colour = discord.Colour.dark_theme()
+
 

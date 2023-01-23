@@ -1,13 +1,20 @@
 from os import listdir
-from discord.ext.commands import Bot as BotBase
+from discord.ext import commands, bridge
 from discord import Intents, Game
 
 defaultIntents: Intents = Intents.default()
 defaultIntents.message_content = True
 
-class client(BotBase):
+class client(bridge.Bot):
 
-    def __init__(self, token: str = None, command_prefix: str = None, Intents: Intents = None, poweredby: bool = True, **options):
+    def __init__(self,
+                token: str,
+                command_prefix: str = None,
+                Intents: Intents = None,
+                poweredby: bool = True,
+                auto_sync_commands: bool = True,
+                **options
+        ):
 
         if token == None or token == "":
             raise print("Token is a argument required")
@@ -22,6 +29,7 @@ class client(BotBase):
         super().__init__(
             command_prefix = command_prefix,  
             intents = Intents,
+            auto_sync_commands = auto_sync_commands,
             **options
         )
     
@@ -32,10 +40,10 @@ class client(BotBase):
     
     def load_cogs(self, folder: str):
 
-        if folder.startswith("./"):
+        if folder.startswith("./") or folder.startswith("."):
             folder = folder.strip("./")
             
-        for cogs in listdir(f"./{folder}"):
+        for cogs in listdir(f"{folder}"):
             if cogs.endswith(".py") and not cogs.startswith("__"):
                 self.load_extensions("{0}.{1}".format(folder.replace("/", "."),cogs[:-3]))
     
@@ -50,7 +58,7 @@ class client(BotBase):
 class Client(client):
     """Represents a discord bot.
 
-    This class is a subclass of :class:`betterFunctions.client` and as a result
+    This class is a subclass of :class:`NewFunctionsPYC.client` and as a result
     anything that you can do with a :class:`discord.Bot` you can do with
     this bot.
     """
@@ -58,7 +66,7 @@ class Client(client):
 class Bot(client):
     """Represents a discord bot.
 
-    This class is a subclass of :class:`betterFunctions.client` and as a result
+    This class is a subclass of :class:`NewFunctionsPYC.client` and as a result
     anything that you can do with a :class:`discord.Bot` you can do with
     this bot.
     """
@@ -66,7 +74,7 @@ class Bot(client):
 class bot(client):
     """Represents a discord bot.
 
-    This class is a subclass of :class:`betterFunctions.client` and as a result
+    This class is a subclass of :class:`NewFunctionsPYC.client` and as a result
     anything that you can do with a :class:`discord.Bot` you can do with
     this bot.
     """
