@@ -1,8 +1,7 @@
 import discord
 from discord.ext import commands
-from discord.ext.bridge import bridge_command
 
-def SlashCommand(name: str = None,
+def Slash_Command(name: str = None,
                 description: str = None,
                 guild_only: bool = False,
                 nsfw: bool = False,
@@ -19,6 +18,8 @@ def SlashCommand(name: str = None,
         name_localizations = {}
     if description_localizations == None:
         description_localizations = {}
+    if name != None:
+        name = name.lower().replace(" ","_")
     
     return discord.slash_command(
         name = name, 
@@ -39,7 +40,7 @@ def CommandPrefix(name: str = None,
                 enable: bool = True,
                 help: str = None,
                 **kwargs
-                ):
+                )-> any:
 
     if usage == None:
         usage = "Not provided"
@@ -49,6 +50,8 @@ def CommandPrefix(name: str = None,
         help = "Not provided"
     if aliases == None:
         aliases = []
+    if name != None:
+        name = name.lower().replace(" ","_")
 
     return commands.command(
         name = name,
@@ -59,21 +62,3 @@ def CommandPrefix(name: str = None,
         enable = enable,
         **kwargs
     )
-
-def HybridCommand(name: str = None,
-                description: str = None,
-                guild_only: bool = False,
-                nsfw: bool = False,
-                options: list = None,
-                guild_ids: list = None,
-                name_localizations: dict = None,
-                description_localizations: dict = None,
-                #Comand Prefix
-                usage: str = None,
-                aliases: list = None,
-                enable: bool = True,
-                help: str = None,
-                **kwargs
-                ):
-    
-    return bridge_command()

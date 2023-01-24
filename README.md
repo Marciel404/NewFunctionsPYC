@@ -6,16 +6,19 @@
 ### install with pip
 
 ```shell
-pip install -U git+https://github.com/Marciel404/NewFunctionsPYC
+pip install NewFunctionsPYC
+pip install -U git+https://github.com/Marciel404/NewFunctionsPYC (Instable)
 ```
 
 ### Import on your code:
 
 ```python
-import betterFunctions
+import NewFunctionsPYC
 ```
 ### Run it
 ```python
+
+#More exemples in https://github.com/Marciel404/NewFunctionsPYC/tree/main/exemples
 
 Using embedBuilder:
 
