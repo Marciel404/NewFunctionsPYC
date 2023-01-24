@@ -30,7 +30,7 @@ Using embedBuilder:
     >>>
     >>> e.set_color(stringColor("indigo"))
     >>>
-    >>> channel.send(embed = e ) #List all colors availables
+    >>> channel.send(embed = e )
     
 Using client:
 
