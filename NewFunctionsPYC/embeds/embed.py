@@ -126,7 +126,7 @@ class EmbedBuilder:
                 icon_url = self.setfooter["icon_url"]
             )
 
-        if self.add_fields != []:
+        if self.addfields != []:
             for x in self.addfields: 
                 e.add_field(
                     name = x["name"],
@@ -134,7 +134,7 @@ class EmbedBuilder:
                     inline = x["inline"]
                 )
         
-        if self.insert_field_at != []:
+        if self.insertfield != []:
             for x in self.insertfield:
                 e.insert_field_at(
                     index = x["index"],
