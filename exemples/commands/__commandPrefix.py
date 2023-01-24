@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from NewFunctionsPYC import CommandPrefix
+from NewFunctionsPYC import CommandPrefix, prefixContext
 
 class CommandsPrefix(commands.Cog):
 
@@ -12,7 +12,7 @@ class CommandsPrefix(commands.Cog):
         name = "Teste" # Now the name convert for lowCase and replace spaces for _
     )
     @commands.cooldown(1, 2, commands.BucketType.member)
-    async def NameSymbolic(self, ctx: commands.Context):
+    async def NameSymbolic(self, ctx: prefixContext):
         """
         This Function add PrefixCommands
         """

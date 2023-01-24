@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from NewFunctionsPYC import HybridCommand, hybridCtx
+from NewFunctionsPYC import HybridCommand, hybridContext
 
 class HybridCommands(commands.Cog):
 
@@ -12,7 +12,7 @@ class HybridCommands(commands.Cog):
         name = "Teste" # Now the name convert for lowCase and replace spaces for _ (Required)
     )
     @commands.cooldown(1, 2, commands.BucketType.member)
-    async def NameSymbolic(self, ctx: hybridCtx):
+    async def NameSymbolic(self, ctx: hybridContext):
         """
         This Function add SlashCommands and PrefixCommands
         """

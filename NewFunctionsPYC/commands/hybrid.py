@@ -1,7 +1,7 @@
 import discord
 from discord.ext.bridge import bridge_command, BridgeContext
 
-hybridCtx = BridgeContext
+hybridContext = BridgeContext
 
 def HybridCommand(name: str,
                 description: str = None,

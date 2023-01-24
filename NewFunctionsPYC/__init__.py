@@ -15,12 +15,13 @@ To make it easier for new people to get started on pycord
 """
 
 __name__ = "NewFunctionsPYC"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "Marciel404"
 __license__ = "MIT"
 
 from .embeds.embed import *
 from .client.loader import *
-from .commands.commands import *
+from .commands.prefix import *
+from .commands.slash import *
 from .commands.hybrid import *
 

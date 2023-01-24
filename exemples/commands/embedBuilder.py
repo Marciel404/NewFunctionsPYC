@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from NewFunctionsPYC import EmbedBuilder, CommandPrefix
+from NewFunctionsPYC import EmbedBuilder, CommandPrefix, prefixContext
 
 class embeds(commands.Cog):
 
@@ -10,7 +10,7 @@ class embeds(commands.Cog):
 
     @CommandPrefix() #If name equal None the name of function is attributed the name command
     @commands.cooldown(1, 2, commands.BucketType.member)
-    async def embed(self, ctx: commands.Context):
+    async def embed(self, ctx: prefixContext):
 
         e: EmbedBuilder = EmbedBuilder() #Start the embed
 
@@ -34,7 +34,7 @@ class embeds(commands.Cog):
 
     @CommandPrefix(name = "embedif") 
     @commands.cooldown(1, 2, commands.BucketType.member)
-    async def NameSymbolic(self, ctx: commands.Context, mod: int): # condition with if or match case(python3.10+)
+    async def NameSymbolic(self, ctx: prefixContext, mod: int): # condition with if or match case(python3.10+)
 
         e: EmbedBuilder = EmbedBuilder() #Start the embed
 

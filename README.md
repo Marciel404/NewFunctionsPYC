@@ -20,12 +20,12 @@ import NewFunctionsPYC
 
 #More exemples in https://github.com/Marciel404/NewFunctionsPYC/tree/main/exemples
 
-Using embedBuilder:
+Using EmbedBuilder:
 
-    >>> from NewFunctionsPYC import embedBuilder
+    >>> from NewFunctionsPYC import EmbedBuilder
     >>> from hexacolors import stringColor # "pip install hexacolors" for use this
     >>>
-    >>> e: embedBuilder = embedBuilder()
+    >>> e: EmbedBuilder = EmbedBuilder()
     >>>
     >>> e.set_title("Title")
     >>>
@@ -33,7 +33,7 @@ Using embedBuilder:
     >>>
     >>> e.set_color(stringColor("indigo"))
     >>>
-    >>> channel.send(embed = e )
+    >>> channel.send(embed = e.build())
     
 Using client:
 

@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from NewFunctionsPYC import Slash_Command
+from NewFunctionsPYC import Slash_Command, slashContext
 
 class SlashCommands(commands.Cog):
 
@@ -13,7 +13,7 @@ class SlashCommands(commands.Cog):
         description = "This is a Description",
     )
     @commands.cooldown(1, 2, commands.BucketType.member)
-    async def NameSymbolic(self, ctx: discord.Interaction):
+    async def NameSymbolic(self, ctx: slashContext):
         """
         This Function add SlashCommands
         """
