@@ -1,6 +1,6 @@
 import NewFunctionsPYC
 
-client = NewFunctionsPYC.client("") #Declare the bot
+client = NewFunctionsPYC.client("token bot here") #Declare the bot
 
 client.load_cogs("commands") #load Folder cogs
 
