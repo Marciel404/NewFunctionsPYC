@@ -1,14 +1,12 @@
 import discord
 from discord.ext import commands
-from NewFunctionsPYC import embedBuilder
+from NewFunctionsPYC import embedBuilder, CommandPrefix, SlashCommand
 
 class CogName(commands.Cog):
     def __init__(self, bot:commands.Bot):
         self.bot = bot
 
-    @commands.command(name = "embed",
-                    usage="<usage>",
-                    description = "description")
+    @CommandPrefix()
     @commands.guild_only()
     @commands.has_permissions()
     @commands.cooldown(1, 2, commands.BucketType.member)
