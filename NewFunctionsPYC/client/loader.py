@@ -2,10 +2,12 @@ from os import listdir
 import discord
 from discord.ext import commands, bridge
 from discord import Intents, Game
-from ..commands.hybrid import hybridCtx
 
-defaultIntents: Intents = Intents.default()
-defaultIntents.message_content = True
+defaultIntents: Intents = Intents(
+        message_content = True,
+        members = True,
+        messages = True
+)
 
 class client(bridge.Bot):
 

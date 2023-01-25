@@ -1,6 +1,6 @@
-import discord
+import discord, hexacolors
 from discord.ext import commands
-from NewFunctionsPYC import EmbedBuilder, CommandPrefix, prefixContext
+from NewFunctionsPYC import EmbedBuilder, CommandPrefix, prefixContext, hexadecimalColor, rgbColor
 
 class embeds(commands.Cog):
 
@@ -16,13 +16,13 @@ class embeds(commands.Cog):
 
         e.set_title("test") #Define the title
         e.set_description("test2") #Define the description
-        e.set_color(11542) #Define Color
+        e.set_color(rgbColor(255,0,255)) #Define Color
 
         await ctx.send(embed = e.build()) #Build the embed and send message
 
         e.remove_description() #Remove the description
         e.set_title("Hello")
-        e.set_colour(5544)
+        e.set_colour(hexadecimalColor("#0B5EC1"))
 
         await ctx.send(embed = e.build()) #Build the embed and send message
 

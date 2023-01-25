@@ -1,4 +1,5 @@
 import discord
+import hexacolors
 
 class EmbedBuilder:
 
@@ -76,10 +77,10 @@ class EmbedBuilder:
         self.setthumb = str(url)
 
     def remove_title(self) -> str:
-        self.title = ""
+        self.settitle = ""
     
     def remove_description(self) -> str:
-        self.description = ""
+        self.setdescription = ""
 
     def remove_color(self) -> int:
         self.setcolour = discord.Color.dark_theme()
@@ -103,7 +104,7 @@ class EmbedBuilder:
         self.removefooter = True
     
     def clear_fields(self) -> bool:
-        self.clearfiels = True
+        self.clearfields = True
     
     def build(self) -> discord.Embed:
 
@@ -164,7 +165,13 @@ class EmbedBuilder:
         if self.removethumb != False: 
             e.remove_thumbnail()
         
-        if self.clearfiels != False:
+        if self.clearfields != False:
             e.clear_fields()
         
         return e
+
+def hexadecimalColor(hex: str):
+    return hexacolors.hexadecimal(str(hex))
+
+def rgbColor(r: int, g: int, b: int):
+    return hexacolors.rgb(f"{r},{g},{b}")

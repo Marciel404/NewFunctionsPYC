@@ -15,7 +15,7 @@ To make it easier for new people to get started on pycord
 """
 
 __name__ = "NewFunctionsPYC"
-__version__ = "1.0.1"
+__version__ = "1.2.0"
 __author__ = "Marciel404"
 __license__ = "MIT"
 
