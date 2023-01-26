@@ -2,6 +2,7 @@ from os import listdir
 import discord
 from discord.ext import commands, bridge
 from discord import Intents, Game
+from ..commands.slash import Slash_Command
 
 defaultIntents: Intents = Intents(
         message_content = True,
@@ -9,7 +10,7 @@ defaultIntents: Intents = Intents(
         messages = True
 )
 
-class client(bridge.Bot):
+class BotBase(bridge.Bot):
 
     def __init__(self,
             token: str,
@@ -44,6 +45,35 @@ class client(bridge.Bot):
             await self.change_presence(activity=Game(name="PoweredBy PyCord and NewFunctionsPYC"))
             print("PoweredBy PyCord and NewFunctionsPYC")
     
+    def upsertComand(
+            self,
+            name: str,
+            description: str = None,
+            guild_only: bool = False,
+            nsfw: bool = False,
+            guild_ids: list = None,
+            options: list = [],
+            name_localizations: dict = {},
+            description_localizations: dict = {},
+            **kwargs) -> any:
+
+        if name != None:
+            name = name.lower().replace(" ","_")
+
+        @self.application_command(
+                name=name,
+                description=description,
+                nsfw=nsfw,
+                guild_only=guild_only,
+                guild_ids=guild_ids,
+                options=options,
+                name_localizations=name_localizations,
+                description_localizations=description_localizations,
+                kwargs=kwargs
+                )
+        async def add(ctx):
+            pass
+    
     def load_cogs(self, folder: str):
 
         if folder.startswith("./") or folder.startswith("."):
@@ -60,6 +90,14 @@ class client(bridge.Bot):
             self.run(self.token)
         except Exception as error:
             return print(error)
+
+class client(BotBase):
+    """Represents a discord bot.
+
+    This class is a subclass of :class:`NewFunctionsPYC.client` and as a result
+    anything that you can do with a :class:`discord.Bot` you can do with
+    this bot.
+    """
 
 class Client(client):
     """Represents a discord bot.
@@ -78,6 +116,14 @@ class Bot(client):
     """
 
 class bot(client):
+    """Represents a discord bot.
+
+    This class is a subclass of :class:`NewFunctionsPYC.client` and as a result
+    anything that you can do with a :class:`discord.Bot` you can do with
+    this bot.
+    """
+
+class BotBuilder(client):
     """Represents a discord bot.
 
     This class is a subclass of :class:`NewFunctionsPYC.client` and as a result

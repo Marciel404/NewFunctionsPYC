@@ -14,7 +14,7 @@ class EmbedBuilder:
         self.setauthor: dict = {}
         self.setimage: str = None
         self.setthumb: str = None
-        self.removefield: int = None
+        self.removefield: list = []
         self.removeauthor: bool = False
         self.removeimage: bool = False
         self.removethumb: bool = False
@@ -98,7 +98,11 @@ class EmbedBuilder:
         self.removethumb = True
     
     def remove_field(self, index: int) -> int:
-        self.removefield = int(index)
+        self.removefield.append(
+            {
+                "index": index
+            }
+        )
     
     def remove_footer(self) -> bool:
         self.removefooter = True
@@ -150,8 +154,14 @@ class EmbedBuilder:
         if self.setimage != None: 
             e.set_image(url = self.url)
 
-        if self.removefield != None: 
-            e.remove_field(self.remove_field)
+        if self.removefield != []:
+            counter = 0
+            while True:
+                e.remove_field(int(self.removefield[counter-1]["index"]))
+                if counter != self.removefield.__len__():
+                    counter += 1
+                else:
+                    break
 
         if self.removefooter != False: 
             e.remove_footer()

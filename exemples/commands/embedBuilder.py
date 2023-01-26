@@ -17,18 +17,24 @@ class embeds(commands.Cog):
         e.set_title("test") #Define the title
         e.set_description("test2") #Define the description
         e.set_color(rgbColor(255,0,255)) #Define Color
+        e.add_field(name="1", value="2", inline=False)
+        e.add_field(name="2", value="2")
+        e.add_field(name="3", value="3")
 
         await ctx.send(embed = e.build()) #Build the embed and send message
 
         e.remove_description() #Remove the description
         e.set_title("Hello")
         e.set_colour(hexadecimalColor("#0B5EC1"))
+        e.remove_field(0)
+        e.remove_field(2)
 
         await ctx.send(embed = e.build()) #Build the embed and send message
 
         e.set_footer(text="Tests")
         e.remove_title() #Remove the title
         e.remove_colour() #Remove the color
+        e.remove_field(0)
 
         await ctx.send(embed = e.build()) #Build the embed and send message
 
