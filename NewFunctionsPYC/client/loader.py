@@ -94,7 +94,7 @@ class BotBase(bridge.Bot):
 class client(BotBase):
     """Represents a discord bot.
 
-    This class is a subclass of :class:`NewFunctionsPYC.client` and as a result
+    This class is a subclass of :class:`NewFunctionsPYC.BotBase` and as a result
     anything that you can do with a :class:`discord.Bot` you can do with
     this bot.
     """
@@ -102,7 +102,7 @@ class client(BotBase):
 class Client(client):
     """Represents a discord bot.
 
-    This class is a subclass of :class:`NewFunctionsPYC.client` and as a result
+    This class is a subclass of :class: `NewFunctionsPYC.BotBase` and as a result
     anything that you can do with a :class:`discord.Bot` you can do with
     this bot.
     """
@@ -110,7 +110,7 @@ class Client(client):
 class Bot(client):
     """Represents a discord bot.
 
-    This class is a subclass of :class:`NewFunctionsPYC.client` and as a result
+    This class is a subclass of :class:`NewFunctionsPYC.BotBase` and as a result
     anything that you can do with a :class:`discord.Bot` you can do with
     this bot.
     """
@@ -118,7 +118,7 @@ class Bot(client):
 class bot(client):
     """Represents a discord bot.
 
-    This class is a subclass of :class:`NewFunctionsPYC.client` and as a result
+    This class is a subclass of :class:`NewFunctionsPYC.BotBase` and as a result
     anything that you can do with a :class:`discord.Bot` you can do with
     this bot.
     """
@@ -126,7 +126,7 @@ class bot(client):
 class BotBuilder(client):
     """Represents a discord bot.
 
-    This class is a subclass of :class:`NewFunctionsPYC.client` and as a result
+    This class is a subclass of :class:`NewFunctionsPYC.BotBase` and as a result
     anything that you can do with a :class:`discord.Bot` you can do with
     this bot.
     """
