@@ -1,8 +1,6 @@
 from os import listdir
-import discord
 from discord.ext import commands, bridge
 from discord import Intents, Game
-from ..commands.slash import Slash_Command
 
 defaultIntents: Intents = Intents(
         message_content = True,
