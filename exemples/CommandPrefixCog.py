@@ -13,7 +13,7 @@ class CommandsPrefix(commands.Cog):
     @commands.cooldown(1, 2, commands.BucketType.member)
     async def NameSymbolic(self, ctx: prefixContext):
         """
-        This Function add PrefixCommands
+        This decorator add PrefixCommands
         """
 
         await ctx.send("Hello World")
@@ -22,7 +22,7 @@ class CommandsPrefix(commands.Cog):
     @commands.cooldown(1, 2, commands.BucketType.member)
     async def hello_World(self, ctx: commands.Context):
         """
-        This Function add PrefixCommands
+        This decorator add PrefixCommands
         """
 
         await ctx.send("Hello World")

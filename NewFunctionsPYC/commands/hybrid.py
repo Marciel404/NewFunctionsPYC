@@ -7,34 +7,29 @@ def HybridCommand(name: str,
                 description: str = None,
                 guild_only: bool = False,
                 nsfw: bool = False,
-                options: list = None,
                 guild_ids: list = None,
-                name_localizations: dict = None,
-                description_localizations: dict = None,
+                name_localizations: dict = {},
+                description_localizations: dict = {},
                 usage: str = None, 
-                aliases: list = None,
+                aliases: list = [],
                 enable: bool = True,
                 help: str = None,
                 **kwargs) -> any:
     
-    if options == None:
-        options = []
-    if name_localizations == None:
-        name_localizations = {}
-    if description_localizations == None:
-        description_localizations = {}
     if name != None:
         name = name.lower().replace(" ","_")
+
     if description == None:
         description = "No description provided"
+
     if usage == None:
         usage = "Not provided"
+
     if description == None:
         description = "Not provided"
+        
     if help == None:
         help = "Not provided"
-    if aliases == None:
-        aliases = []
 
     return bridge_command(
         name = name,

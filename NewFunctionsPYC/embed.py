@@ -5,21 +5,14 @@ class EmbedBuilder:
 
     def __init__(self) -> None:
 
-        self.settitle: str = ""
-        self.setdescription: str = ""
+        self.settitle: str = ""; self.setdescription: str = ""
+        self.addfields: list = []; self.insertfield: list = []
+        self.removefield: list = []; self.clearfields: bool = False
+        self.setfooter: dict = {}; self.removefooter: bool = False
+        self.setauthor: dict = {}; self.removeauthor: bool = False
+        self.setimage: str = None; self.setthumb: str = None
+        self.removeimage: bool = False; self.removethumb: bool = False
         self.setcolour: int = discord.Colour.dark_theme()
-        self.addfields: list = []
-        self.insertfield: list = []
-        self.setfooter: dict = {}
-        self.setauthor: dict = {}
-        self.setimage: str = None
-        self.setthumb: str = None
-        self.removefield: list = []
-        self.removeauthor: bool = False
-        self.removeimage: bool = False
-        self.removethumb: bool = False
-        self.removefooter: bool = False
-        self.clearfields: bool = False
 
     def set_title(self, title: str) -> str:
         self.settitle = str(title)
@@ -53,7 +46,6 @@ class EmbedBuilder:
                 "inline": inline
             }
         )
-
     
     def set_footer(self, text: str, icon_url: str = "") -> dict:
 
@@ -69,6 +61,14 @@ class EmbedBuilder:
             "url": url,
             "icon_url": icon_url
         }
+    
+    def remove_field(self, index: int) -> int:
+        self.removefield.append(
+            {
+                "index": index
+            }
+        )
+    
     
     def set_image(self, url: str) -> str:
         self.setimage = str(url)
@@ -96,13 +96,6 @@ class EmbedBuilder:
     
     def remove_thumbnail(self) -> bool:
         self.removethumb = True
-    
-    def remove_field(self, index: int) -> int:
-        self.removefield.append(
-            {
-                "index": index
-            }
-        )
     
     def remove_footer(self) -> bool:
         self.removefooter = True

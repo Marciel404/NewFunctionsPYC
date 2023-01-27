@@ -13,7 +13,7 @@ class HybridCommands(commands.Cog):
     @commands.cooldown(1, 2, commands.BucketType.member)
     async def NameSymbolic(self, ctx: hybridContext):
         """
-        This Function add SlashCommands and PrefixCommands
+        This decorator add SlashCommands and PrefixCommands
         """
 
         await ctx.reply("Hello World")

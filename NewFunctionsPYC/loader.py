@@ -87,7 +87,7 @@ class BotBase(bridge.Bot):
         try:
             self.run(self.token)
         except Exception as error:
-            return print(error)
+            return print("Error: {}".format(error))
 
 class client(BotBase):
     """Represents a discord bot.
