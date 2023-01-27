@@ -32,8 +32,6 @@ classifiers = [
 [tool.setuptools]
 packages = [
     "NewFunctionsPYC",
-    "NewFunctionsPYC.client",
-    "NewFunctionsPYC.embeds",
     "NewFunctionsPYC.commands"
 ]
 
