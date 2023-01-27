@@ -1,6 +1,6 @@
 import NewFunctionsPYC, discord
 
-client = NewFunctionsPYC.client("")
+client = NewFunctionsPYC.client("Token Bot Here")
 
 client.upsertComand("command_name_slash", "This is a Description")
 

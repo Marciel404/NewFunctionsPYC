@@ -19,26 +19,30 @@ __version__ = "1.2.0"
 __author__ = "Marciel404"
 __license__ = "MIT"
 
-from .embeds.embed import (
+from .embed import (
     EmbedBuilder,
     rgbColor, 
     hexadecimalColor
 )
-from .client.loader import (
+
+from .loader import (
     Client,
     client,
     bot,
     Bot,
     BotBuilder
 )
+
 from .commands.prefix import (
     prefixContext,
-    CommandPrefix
+    CommandPrefix,
 )
+
 from .commands.slash import (
     slashContext,
     Slash_Command
 )
+
 from .commands.hybrid import (
     hybridContext,
     HybridCommand
