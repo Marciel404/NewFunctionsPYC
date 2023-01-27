@@ -23,7 +23,7 @@ import NewFunctionsPYC
 Using EmbedBuilder:
 
     >>> from NewFunctionsPYC import EmbedBuilder
-    >>> from hexacolors import stringColor # "pip install hexacolors" for use this
+    >>> from hexacolors import stringColor
     >>>
     >>> e: EmbedBuilder = EmbedBuilder()
     >>>
