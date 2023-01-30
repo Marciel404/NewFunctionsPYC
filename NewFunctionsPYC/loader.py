@@ -97,14 +97,6 @@ class client(BotBase):
     this bot.
     """
 
-class Client(client):
-    """Represents a discord bot.
-
-    This class is a subclass of :class:`NewFunctionsPYC.BotBase` and as a result
-    anything that you can do with a :class:`discord.Bot` you can do with
-    this bot.
-    """
-
 class Bot(client):
     """Represents a discord bot.
 

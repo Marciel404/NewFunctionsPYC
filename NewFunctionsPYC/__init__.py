@@ -26,7 +26,7 @@ from .embed import (
 )
 
 from .loader import (
-    Client,
+    BotBase as Client,
     client,
     bot,
     Bot,
