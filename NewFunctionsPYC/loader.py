@@ -9,7 +9,7 @@ defaultIntents: Intents = Intents(
         messages = True
 )
 
-class BotBase(bridge.Bot):
+class BotBuilder(bridge.Bot):
 
     def __init__(self,
             token: str,
@@ -89,34 +89,34 @@ class BotBase(bridge.Bot):
         except Exception as error:
             return print("Error: {}".format(error))
 
-class client(BotBase):
+class client(BotBuilder):
     """Represents a discord bot.
 
-    This class is a subclass of :class:`NewFunctionsPYC.BotBase` and as a result
+    This class is a subclass of :class:`NewFunctionsPYC.BotBuilder` and as a result
     anything that you can do with a :class:`discord.Bot` you can do with
     this bot.
     """
 
-class Bot(client):
+class Bot(BotBuilder):
     """Represents a discord bot.
 
-    This class is a subclass of :class:`NewFunctionsPYC.BotBase` and as a result
+    This class is a subclass of :class:`NewFunctionsPYC.BotBuilder` and as a result
     anything that you can do with a :class:`discord.Bot` you can do with
     this bot.
     """
 
-class bot(client):
+class bot(BotBuilder):
     """Represents a discord bot.
 
-    This class is a subclass of :class:`NewFunctionsPYC.BotBase` and as a result
+    This class is a subclass of :class:`NewFunctionsPYC.BotBuilder` and as a result
     anything that you can do with a :class:`discord.Bot` you can do with
     this bot.
     """
 
-class BotBuilder(client):
+class Client(BotBuilder):
     """Represents a discord bot.
 
-    This class is a subclass of :class:`NewFunctionsPYC.BotBase` and as a result
+    This class is a subclass of :class:`NewFunctionsPYC.BotBuilder` and as a result
     anything that you can do with a :class:`discord.Bot` you can do with
     this bot.
     """

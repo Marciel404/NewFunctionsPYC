@@ -13,6 +13,7 @@ class EmbedBuilder:
         self.setimage: str = None; self.setthumb: str = None
         self.removeimage: bool = False; self.removethumb: bool = False
         self.setcolour: int = discord.Colour.dark_theme()
+        self.e: discord.Embed
 
     def set_title(self, title: str) -> str:
         self.settitle = str(title)
@@ -105,28 +106,28 @@ class EmbedBuilder:
     
     def build(self) -> discord.Embed:
 
-        e = discord.Embed(
+        self.e = discord.Embed(
             title = self.settitle,
             description = self.setdescription,
             color = self.setcolour
         )
 
         if self.setauthor != {}: 
-            e.set_author(
+            self.e.set_author(
                 name = self.setauthor["name"], 
                 url = self.setauthor["url"], 
                 icon_url = self.setauthor["icon_url"]
             )
 
         if self.setfooter != {}:
-            e.set_footer(
+            self.e.set_footer(
                 text = self.setfooter["text"],
                 icon_url = self.setfooter["icon_url"]
             )
 
         if self.addfields != []:
             for x in self.addfields: 
-                e.add_field(
+                self.e.add_field(
                     name = x["name"],
                     value = x["value"],
                     inline = x["inline"]
@@ -134,7 +135,7 @@ class EmbedBuilder:
         
         if self.insertfield != []:
             for x in self.insertfield:
-                e.insert_field_at(
+                self.e.insert_field_at(
                     index = x["index"],
                     name = x["name"],
                     value = x["value"],
@@ -142,36 +143,40 @@ class EmbedBuilder:
                 )
 
         if self.setthumb != None: 
-            e.set_thumbnail(self.thumb)
+            self.e.set_thumbnail(self.thumb)
 
         if self.setimage != None: 
-            e.set_image(url = self.url)
+            self.e.set_image(url = self.url)
 
         if self.removefield != []:
             counter = 0
             while True:
-                e.remove_field(int(self.removefield[counter-1]["index"]))
-                if counter != self.removefield.__len__():
-                    counter += 1
-                else:
-                    break
+                self.e.remove_field(int(self.removefield[counter-1]["index"]))
+                if counter != self.removefield.__len__(): counter += 1
+                else: break
 
         if self.removefooter != False: 
-            e.remove_footer()
+            self.e.remove_footer()
 
         if self.removeauthor != False: 
-            e.remove_author()
+            self.e.remove_author()
 
         if self.removeimage != False: 
-            e.remove_image()
+            self.e.remove_image()
 
         if self.removethumb != False: 
-            e.remove_thumbnail()
+            self.e.remove_thumbnail()
         
         if self.clearfields != False:
-            e.clear_fields()
+            self.e.clear_fields()
         
-        return e
+        return self.e
+    
+    def detonarn(self):
+        try:
+            del self.e
+        except AttributeError:
+            pass
 
 def hexadecimalColor(hex: str):
     return hexacolors.hexadecimal(str(hex))
