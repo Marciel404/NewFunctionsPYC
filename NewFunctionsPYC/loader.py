@@ -2,8 +2,9 @@ from os import listdir, getenv
 from discord.ext import bridge
 from discord import Intents, Game
 from dotenv import load_dotenv
+
+from NewFunctionsPYC.clientLogin import ClientAPI
 from .commands.options import Choice
-import requests
 
 def getTokenDotEnv():
     load_dotenv()
@@ -53,25 +54,14 @@ class BotBuilder(bridge.Bot):
     
     async def on_ready(self):
 
-        for i in self.commandsREGISTER:
-            if i["guild_ids"] is None:
-                url = f"https://discord.com/api/v10/applications/{self.user.id}/commands"
-            else:
-                url = f"https://discord.com/api/v10/applications/{self.user.id}/guilds/{i['guild_id']}/commands"
-            
-            e = requests.post(
-                url=url,
-                json=i,
-                headers = {
-                    "Authorization": f"Bot {self.token}"
-                }
-            )
+        if self.commandsREGISTER.__len__() > 0:
 
-            if e.status_code == 201:
-                print(f"{i['name']} registered sucefully")
-            else:
-                print(f"Error registering {i['name']}")
-            
+            await ClientAPI().post(
+                "regSlashCommands",
+                token = self.token,
+                commandsREGISTER = self.commandsREGISTER,
+                botId = self.user.id
+            )
             
         if self.poweredby == True:
             await self.change_presence(activity=Game(name="PoweredBy PyCord and NewFunctionsPYC"))
@@ -87,7 +77,13 @@ class BotBuilder(bridge.Bot):
             name_localizations: dict = {},
             description_localizations: dict = {},
             guild_only: bool = None,
+            logRegister: bool = True
         ) -> any:
+
+        if guild_only is None:
+            guild_only = True
+        else:
+            guild_only = False
 
         dictCommand = {
             "type": 1,
@@ -97,14 +93,10 @@ class BotBuilder(bridge.Bot):
             "options": options,
             "guild_ids":guild_ids,
             "name_localizations": name_localizations,
-            "description_localizations": description_localizations
+            "description_localizations": description_localizations,
+            "dm_permission": guild_only,
+            "logRegister": logRegister
         }
-
-        if guild_only is None:
-            guild_only = True
-        else:
-            guild_only = False
-        dictCommand["dm_permission"] = guild_only
 
         self.commandsREGISTER.append(dictCommand)
 

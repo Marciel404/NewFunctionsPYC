@@ -4,23 +4,22 @@ import hexacolors
 class EmbedBuilder:
     """Embed contructor alike DiscordJs"""
 
-    def __init__(self) -> None:
-
-        self.settitle: str = ""
-        self.setdescription: str = ""
-        self.addfields: list = []
-        self.insertfield: list = []
-        self.removefield: list = []
-        self.clearfields: bool = False
-        self.setfooter: dict = {}
-        self.removefooter: bool = False
-        self.setauthor: dict = {}
-        self.removeauthor: bool = False
-        self.setimage: str = None
-        self.setthumb: str = None
-        self.removeimage: bool = False; self.removethumb: bool = False
-        self.setcolour: int = discord.Colour.dark_theme()
-        self.e: discord.Embed
+    settitle: str = ""
+    setdescription: str = ""
+    addfields: list = []
+    insertfield: list = []
+    removefield: list = []
+    clearfields: bool = False
+    setfooter: dict = {}
+    removefooter: bool = False
+    setauthor: dict = {}
+    removeauthor: bool = False
+    setimage: str = None
+    setthumb: str = None
+    removeimage: bool = False
+    removethumb: bool = False
+    setcolour: int = discord.Colour.dark_theme()
+    e: discord.Embed
 
     def set_title(self, title: str) -> str:
         self.settitle = str(title)
@@ -174,6 +173,8 @@ class EmbedBuilder:
 
         if self.clearfields != False:
             self.e.clear_fields()
+
+        return self.e
 
     def detonarn(self):
         try:

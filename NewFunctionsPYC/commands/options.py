@@ -2,7 +2,7 @@ from typing import Any
 
 def Option(
         name: str, 
-        description: str = "Description not provided" , 
+        description: str = "Description not provided", 
         type: "OptionType" = None,
         choices: list["Choice"] = [],
         name_localizations: dict = {},
@@ -25,6 +25,7 @@ def Option(
     return optionDict
 
 class OptionType:
+
     """Types for Options"""
 
     stringOption = 3
@@ -33,7 +34,7 @@ class OptionType:
     userOption = 6
     channelOption = 7
     roleOption = 8
-    attachmentOption= 11
+    attachmentOption = 11
 
 def Choice(
         name,
@@ -41,15 +42,14 @@ def Choice(
         value: Any = None
         ) -> dict:
     """A helper on how to create a choice for the command"""
-    
-    choiceDict = {
-        "name": name,
-        "name_localizations": name_localizations
-    }
 
     if value is None:
         value = name
-    
-    choiceDict["value"] = value
+
+    choiceDict = {
+        "name": name,
+        "name_localizations": name_localizations,
+        "value": value
+    }
 
     return choiceDict
