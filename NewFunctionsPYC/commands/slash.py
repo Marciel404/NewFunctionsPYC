@@ -11,9 +11,9 @@ def Slash_Command(name: str = None,
                 description_localizations: dict = {},
                 **kwargs
                 ) -> any:
+    """For this to work the "auto_sync_commands" needs to be set to True"""
 
-    if name != None:
-        name = name.lower().replace(" ","_")
+    if name != None: name = name.lower().replace(" ","_")
     
     return discord.slash_command(
         name = name, 

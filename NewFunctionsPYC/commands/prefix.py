@@ -11,16 +11,11 @@ def CommandPrefix(name: str = None,
                 **kwargs
                 )-> any:
 
-    if usage == None:
-        usage = "Not provided"
-    if description == None:
-        description = "Not provided"
-    if help == None:
-        help = "Not provided"
-    if aliases == None:
-        aliases = []
-    if name != None:
-        name = name.lower().replace(" ","_")
+    if usage == None: usage = "Not provided"
+    if description == None: description = "Not provided"
+    if help == None: help = "Not provided"
+    if aliases == None: aliases = []
+    if name != None: name = name.lower().replace(" ","_")
 
     return commands.command(
         name = name,

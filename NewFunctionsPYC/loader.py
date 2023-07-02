@@ -18,9 +18,10 @@ class Error(Exception):
     pass
 
 defaultIntents: Intents = Intents(
-        message_content = True,
-        members = True,
-        messages = True
+    message_content = True,
+    members = True,
+    messages = True,
+    guild_messages = True
 )
 
 class BotBuilder(bridge.Bot):
@@ -54,10 +55,9 @@ class BotBuilder(bridge.Bot):
     
     async def on_ready(self):
 
-        if self.commandsREGISTER.__len__() > 0:
+        if self.commandsREGISTER.__len__() > 0 and not self.auto_sync_commands:
 
-            await ClientAPI().post(
-                "regSlashCommands",
+            await ClientAPI.CreateApplicationCommand(
                 token = self.token,
                 commandsREGISTER = self.commandsREGISTER,
                 botId = self.user.id
@@ -67,18 +67,20 @@ class BotBuilder(bridge.Bot):
             await self.change_presence(activity=Game(name="PoweredBy PyCord and NewFunctionsPYC"))
             print("PoweredBy PyCord and NewFunctionsPYC")
 
-    def upsertCommand(
+    def upsertSlashCommand(
             self,
             name: str,
             description: str = "Description not provided",
             nsfw: bool = False,
-            options: list["Choice"] = [],
+            options: list[Choice] = [],
             guild_ids: list = None,
             name_localizations: dict = {},
             description_localizations: dict = {},
             guild_only: bool = None,
             logRegister: bool = True
         ) -> any:
+
+        """For this to work the "auto_sync_commands" needs to be set to False"""
 
         if guild_only is None:
             guild_only = True
@@ -94,6 +96,62 @@ class BotBuilder(bridge.Bot):
             "guild_ids":guild_ids,
             "name_localizations": name_localizations,
             "description_localizations": description_localizations,
+            "dm_permission": guild_only,
+            "logRegister": logRegister
+        }
+
+        self.commandsREGISTER.append(dictCommand)
+    
+    def upsertUserCommand(
+            self,
+            name: str,
+            nsfw: bool = False,
+            guild_ids: list = None,
+            name_localizations: dict = {},
+            guild_only: bool = None,
+            logRegister: bool = True
+        ) -> any:
+        """For this to work the "auto_sync_commands" needs to be set to False"""
+
+        if guild_only is None:
+            guild_only = True
+        else:
+            guild_only = False
+
+        dictCommand = {
+            "type": 2,
+            "name": name,
+            "nsfw": nsfw,
+            "guild_ids":guild_ids,
+            "name_localizations": name_localizations,
+            "dm_permission": guild_only,
+            "logRegister": logRegister
+        }
+
+        self.commandsREGISTER.append(dictCommand)
+    
+    def upsertMessageCommand(
+            self,
+            name: str,
+            nsfw: bool = False,
+            guild_ids: list = None,
+            name_localizations: dict = {},
+            guild_only: bool = None,
+            logRegister: bool = True
+        ) -> any:
+        """For this to work the "auto_sync_commands" needs to be set to False"""
+
+        if guild_only is None:
+            guild_only = True
+        else:
+            guild_only = False
+
+        dictCommand = {
+            "type": 3,
+            "name": name,
+            "nsfw": nsfw,
+            "guild_ids":guild_ids,
+            "name_localizations": name_localizations,
             "dm_permission": guild_only,
             "logRegister": logRegister
         }

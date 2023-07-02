@@ -6,7 +6,8 @@ def Option(
         type: "OptionType" = None,
         choices: list["Choice"] = [],
         name_localizations: dict = {},
-        description_localizations: dict = {}) -> dict:
+        description_localizations: dict = {}
+        ) -> dict:
     
     """A helper on how to create an option for the command"""
 
@@ -34,6 +35,8 @@ class OptionType:
     userOption = 6
     channelOption = 7
     roleOption = 8
+    anyMentionableOption = 9
+    numberOption = intOption
     attachmentOption = 11
 
 def Choice(

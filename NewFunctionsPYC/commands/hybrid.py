@@ -15,6 +15,7 @@ def HybridCommand(name: str,
                 enable: bool = True,
                 help: str = None,
                 **kwargs) -> any:
+    """For this to work the "auto_sync_commands" needs to be set to True"""
     
     if name != None:
         name = name.lower().replace(" ","_")
