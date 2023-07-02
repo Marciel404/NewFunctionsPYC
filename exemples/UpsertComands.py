@@ -2,7 +2,19 @@ import NewFunctionsPYC, discord
 
 client = NewFunctionsPYC.client("Token Bot Here")
 
-client.upsertComand("command_name_slash", "This is a Description")
+client.upsertCommand(
+    name="teste",
+    options=[
+        NewFunctionsPYC.Option(
+            name="teste",
+            choices=[
+                NewFunctionsPYC.Choice(
+                    name="testeeee"
+                )
+            ]
+        )
+    ]
+)
 
 @client.event
 async def on_interaction(interaction: discord.Interaction):
