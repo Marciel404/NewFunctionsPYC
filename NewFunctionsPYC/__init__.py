@@ -15,22 +15,28 @@ To make it easier for new people to get started on pycord
 """
 
 __name__ = "NewFunctionsPYC"
-__version__ = "1.2.0"
 __author__ = "Marciel404"
 __license__ = "MIT"
 
 from .embed import (
     EmbedBuilder,
-    rgbColor, 
+    Colors,
+    rgbColor,
     hexadecimalColor
 )
 
 from .loader import (
-    BotBase as Client,
+    Client,
     client,
     bot,
     Bot,
-    BotBuilder
+    getTokenDotEnv
+)
+
+from .commands.options import (
+    Option,
+    OptionType,
+    Choice
 )
 
 from .commands.prefix import (
@@ -46,5 +52,9 @@ from .commands.slash import (
 from .commands.hybrid import (
     hybridContext,
     HybridCommand
+)
+
+from .checks import (
+    has_roles
 )
 

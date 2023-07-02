@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "NewFunctionsPYC"
-version = "1.3.0"
+version = "1.4.0b"
 keywords = ["Pycord BetterFunctions"]
 authors = [
     {name = "Marciel404"}
