@@ -1,3 +1,4 @@
+import asyncio
 import aiohttp
 
 class ClientAPI:
@@ -5,7 +6,7 @@ class ClientAPI:
     urlBase = "https://discord.com/api/v10/"
     urlRegisterCommand = "applications/{}/commands"
     urlRegisterCommandGuilds = "applications/{}/guilds/{}/commands"
-    
+
     @classmethod
     async def CreateApplicationCommand(cls, **kwargs):
 
@@ -29,3 +30,5 @@ class ClientAPI:
                             print(f"{i['name']} is already registered")
                         else:
                             print(f"Error registering {i['name']}")
+                    await asyncio.sleep(5)
+    

@@ -4,7 +4,7 @@ from discord import Intents, Game
 from dotenv import load_dotenv
 
 from NewFunctionsPYC.clientLogin import ClientAPI
-from .commands.options import Choice
+from .options import Choice
 
 def getTokenDotEnv():
     load_dotenv()
@@ -21,7 +21,8 @@ defaultIntents: Intents = Intents(
     message_content = True,
     members = True,
     messages = True,
-    guild_messages = True
+    guild_messages = True,
+    guilds=True
 )
 
 class BotBuilder(bridge.Bot):
@@ -40,7 +41,7 @@ class BotBuilder(bridge.Bot):
             command_prefix = "!"
         if Intents == None:
             Intents = defaultIntents
-        
+
         self.token: str = token
         self.poweredby: bool = poweredby
         self.commandsREGISTER: list[dict[str,str]] = []
@@ -52,7 +53,7 @@ class BotBuilder(bridge.Bot):
             case_insensitive = case_insensitive,
             **options
         )
-    
+
     async def on_ready(self):
 
         if self.commandsREGISTER.__len__() > 0 and not self.auto_sync_commands:
@@ -101,7 +102,7 @@ class BotBuilder(bridge.Bot):
         }
 
         self.commandsREGISTER.append(dictCommand)
-    
+
     def upsertUserCommand(
             self,
             name: str,
@@ -129,7 +130,7 @@ class BotBuilder(bridge.Bot):
         }
 
         self.commandsREGISTER.append(dictCommand)
-    
+
     def upsertMessageCommand(
             self,
             name: str,

@@ -21,6 +21,7 @@ __license__ = "MIT"
 from .embed import (
     EmbedBuilder,
     Colors,
+    Colours,
     rgbColor,
     hexadecimalColor
 )
@@ -33,28 +34,31 @@ from .loader import (
     getTokenDotEnv
 )
 
-from .commands.options import (
+from .options import (
     Option,
     OptionType,
-    Choice
+    Choice,
+    
 )
 
-from .commands.prefix import (
+from .prefix import (
     prefixContext,
     CommandPrefix,
 )
 
-from .commands.slash import (
+from .slash import (
     slashContext,
     Slash_Command
 )
 
-from .commands.hybrid import (
+from .hybrid import (
     hybridContext,
     HybridCommand
 )
 
 from .checks import (
-    has_roles
+    has_roles,
+    checkVoteTopGG,
+    NoVote
 )
 

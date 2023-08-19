@@ -1,186 +1,86 @@
+from typing import TYPE_CHECKING, Any, Protocol, TypeVar, Union
 import discord
 import hexacolors
 
-class EmbedBuilder:
-    """Embed contructor alike DiscordJs"""
+__slots__ = (
+    "title",
+    "url",
+    "type",
+    "_timestamp",
+    "_colour",
+    "_footer",
+    "_image",
+    "_thumbnail",
+    "_video",
+    "_provider",
+    "_author",
+    "_fields",
+    "description",
+)
 
-    settitle: str = ""
-    setdescription: str = ""
-    addfields: list = []
-    insertfield: list = []
-    removefield: list = []
-    clearfields: bool = False
-    setfooter: dict = {}
-    removefooter: bool = False
-    setauthor: dict = {}
-    removeauthor: bool = False
-    setimage: str = None
-    setthumb: str = None
-    removeimage: bool = False
-    removethumb: bool = False
-    setcolour: int = discord.Colour.dark_theme()
-    e: discord.Embed
 
-    def set_title(self, title: str) -> str:
-        self.settitle = str(title)
+class _EmptyEmbed:
 
-    def set_description(self, description: str) -> str:
-        self.setdescription = str(description)
-
-    def set_color(self, color: int) -> int:
-        self.setcolour = int(color)
-
-    def set_colour(self, color: int) -> int:
-        self.setcolour = int(color)
+    def __bool__(self) -> bool:
+        return False
     
-    def add_field(self, name: str, value: str, inline: bool = True) -> list:
-        
-        self.addfields.append(
-            {
-                "name": name, 
-                "value": value, 
-                "inline": inline
-            }
-        )
-
-    def insert_field_at(self, index: int, name: str, value: str, inline: bool = True):
-
-        self.insertfield.append(
-            {
-                "index": index,
-                "name": name,
-                "value": value,
-                "inline": inline
-            }
-        )
-
-    def set_footer(self, text: str, icon_url: str = "") -> dict:
-
-        self.setfooter = {
-            "text": text,
-            "icon_url": icon_url
-        }
-
-    def set_author(self, name: str, url: str = "", icon_url: str = "") -> dict:
-
-        self.setauthor = {
-            "name": name,
-            "url": url,
-            "icon_url": icon_url
-        }
-
-    def remove_field(self, index: int) -> int:
-        self.removefield.append(
-            {
-                "index": index
-            }
-        )
+    def __repr__(self) -> str:
+        return "Embed.Empty"
     
+    def __len__(self) -> int:
+        return 0
+    
+EmptyEmbed = _EmptyEmbed()
 
-    def set_image(self, url: str) -> str:
-        self.setimage = str(url)
+class EmbedProxy:
+    def __init__(self, layer: dict[str, Any]):
+        self.__dict__.update(layer)
 
-    def set_thumbinail(self, url: str) -> str:
-        self.setthumb = str(url)
-    def remove_title(self) -> str:
-        self.settitle = ""
+    def __len__(self) -> int:
+        return len(self.__dict__)
 
-    def remove_description(self) -> str:
-        self.setdescription = ""
-    def remove_color(self) -> int:
-        self.setcolour = discord.Color.dark_theme()
-
-    def remove_colour(self) -> int:
-        self.setcolour = discord.Color.dark_theme()
-
-    def remove_author(self) -> bool:
-        self.removeauthor = True
-
-    def remove_image(self) -> bool:
-        self.removeimage = True
-
-    def remove_thumbnail(self) -> bool:
-        self.removethumb = True
-
-    def remove_footer(self) -> bool:
-        self.removefooter = True
-
-    def clear_fields(self) -> bool:
-        self.clearfields = True
-
-    def build(self) -> discord.Embed:
-
-        self.e = discord.Embed(
-            title = self.settitle,
-            description = self.setdescription,
-            color = self.setcolour
+    def __repr__(self) -> str:
+        inner = ", ".join(
+            (f"{k}={v!r}" for k, v in self.__dict__.items() if not k.startswith("_"))
         )
+        return f"EmbedProxy({inner})"
 
-        if self.setauthor != {}: 
-            self.e.set_author(
-                name = self.setauthor["name"], 
-                url = self.setauthor["url"], 
-                icon_url = self.setauthor["icon_url"]
-            )
+    def __getattr__(self, attr: str) -> _EmptyEmbed:
+        return EmptyEmbed
 
-        if self.setfooter != {}:
-            self.e.set_footer(
-                text = self.setfooter["text"],
-                icon_url = self.setfooter["icon_url"]
-            )
+if TYPE_CHECKING:
+    from discord.types.embed import Embed as EmbedData
+    from discord.types.embed import EmbedType
 
-        if self.addfields != []:
-            for x in self.addfields: 
-                self.e.add_field(
-                    name = x["name"],
-                    value = x["value"],
-                    inline = x["inline"]
-                )
+    T = TypeVar("T")
+    MaybeEmpty = Union[T, _EmptyEmbed]
 
-        if self.insertfield != []:
-            for x in self.insertfield:
-                self.e.insert_field_at(
-                    index = x["index"],
-                    name = x["name"],
-                    value = x["value"],
-                    inline = x["inline"]
-                )
+    class _EmbedFooterProxy(Protocol):
+        text: MaybeEmpty[str]
+        icon_url: MaybeEmpty[str]
 
-        if self.setthumb != None: 
-            self.e.set_thumbnail(self.thumb)
+    class _EmbedMediaProxy(Protocol):
+        url: MaybeEmpty[str]
+        proxy_url: MaybeEmpty[str]
+        height: MaybeEmpty[int]
+        width: MaybeEmpty[int]
 
-        if self.setimage != None: 
-            self.e.set_image(url = self.url)
+    class _EmbedVideoProxy(Protocol):
+        url: MaybeEmpty[str]
+        height: MaybeEmpty[int]
+        width: MaybeEmpty[int]
 
-        if self.removefield != []:
-            counter = 0
-            while True:
-                self.e.remove_field(int(self.removefield[counter-1]["index"]))
-                if counter != self.removefield.__len__(): counter += 1
-                else: break
+    class _EmbedProviderProxy(Protocol):
+        name: MaybeEmpty[str]
+        url: MaybeEmpty[str]
 
-        if self.removefooter != False: 
-            self.e.remove_footer()
+    class _EmbedAuthorProxy(Protocol):
+        name: MaybeEmpty[str]
+        url: MaybeEmpty[str]
+        icon_url: MaybeEmpty[str]
+        proxy_icon_url: MaybeEmpty[str]
 
-        if self.removeauthor != False: 
-            self.e.remove_author()
-
-        if self.removeimage != False: 
-            self.e.remove_image()
-
-        if self.removethumb != False: 
-            self.e.remove_thumbnail()
-
-        if self.clearfields != False:
-            self.e.clear_fields()
-
-        return self.e
-
-    def detonarn(self):
-        try:
-            del self.e
-        except AttributeError:
-            pass
+E = TypeVar("E", bound="EmbedBuilder")
 
 class Colors: 
     """Return interger color for embed"""
@@ -216,7 +116,50 @@ class Colors:
     yellow = 0xFEE75C
     nitro_pink = 0xF47FFF
 
+class Colours(Colors):
+    """This class is a subclass of :class:`NewFunctionsPYC.Colors`"""
+
 def hexadecimalColor(hex: str):
     return hexacolors.hexadecimal(str(hex))
+
 def rgbColor(r: int, g: int, b: int):
     return hexacolors.rgb(f"{r},{g},{b}")
+
+class attributesEmbed:
+
+    dictEmb: dict[{str,str}] = {}
+    fields = []
+    title = ""
+    description = ""
+    footer = {}
+    author = {}
+    thumbnail = {}
+    color = Colors.default
+    image = {}
+    thumbinail = {}
+
+listAttributes = ["fields","title","description","footer","author","thumbnail","color", "image","thumbinail"]
+
+class EmbedBuilder:
+    """Embed contructor alike DiscordJs"""
+
+    def set_title(self, title: str):
+        attributesEmbed.title = title
+    
+    def set_description(self, description: str):
+        attributesEmbed.description = description
+
+    def set_footer(self, text: str, icon_url: str = None):
+
+        attributesEmbed.footer["text"] = text
+
+        if icon_url is None:
+            attributesEmbed.footer["icon_url"] = icon_url
+
+    def to_dict(self):
+
+        for i in listAttributes:
+            if getattr(attributesEmbed,i):
+                attributesEmbed.dictEmb[i] = getattr(attributesEmbed,i)
+
+        return attributesEmbed.dictEmb

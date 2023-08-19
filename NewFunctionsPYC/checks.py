@@ -1,5 +1,4 @@
-import discord
-import requests
+import aiohttp
 from discord.ext import commands
 
 class NoGuild(commands.CommandError):
@@ -58,7 +57,7 @@ def checkVoteTopGG(topauth: str, arg: str | None = None):
     """
     A decorator for check if the user command has voted in top.gg
 
-    .. versionadded:: 1.3
+    .. versionadded:: 1.4
 
     Parameters
     ------------
@@ -84,14 +83,16 @@ def checkVoteTopGG(topauth: str, arg: str | None = None):
         await ctx.send('You voted!')
     """
 
-    def check(ctx: commands.Context):
+    async def check(ctx):
 
-        o = requests.get(
-            headers = {"Authorization": topauth},
-            url = f'https://top.gg/api/bots/{ctx.me.id}/check?userId={ctx.author.id}'
-        )
+        async with aiohttp.ClientSession() as request:
+            async with request.get(url=f"https://top.gg/api/bots/{ctx.me.id}/check?userId={ctx.author.id}", headers={"Authorization": topauth}) as RequestResponse:
+                if RequestResponse.status == 200:
+                    response = await RequestResponse.json()
+                else:
+                    raise NoVote("Error checking vote on top.gg")
 
-        if o.json()['voted'] == 0:
+        if response['voted'] == 0:
             raise NoVote(arg)
 
         return True
