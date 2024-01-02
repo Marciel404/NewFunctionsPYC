@@ -1,23 +1,5 @@
-from typing import TYPE_CHECKING, Any, Protocol, TypeVar, Union
-import discord
-import hexacolors
-
-__slots__ = (
-    "title",
-    "url",
-    "type",
-    "_timestamp",
-    "_colour",
-    "_footer",
-    "_image",
-    "_thumbnail",
-    "_video",
-    "_provider",
-    "_author",
-    "_fields",
-    "description",
-)
-
+from typing import Any
+from hexacolors import rgb, hexadecimal
 
 class _EmptyEmbed:
 
@@ -33,6 +15,7 @@ class _EmptyEmbed:
 EmptyEmbed = _EmptyEmbed()
 
 class EmbedProxy:
+
     def __init__(self, layer: dict[str, Any]):
         self.__dict__.update(layer)
 
@@ -48,41 +31,18 @@ class EmbedProxy:
     def __getattr__(self, attr: str) -> _EmptyEmbed:
         return EmptyEmbed
 
-if TYPE_CHECKING:
-    from discord.types.embed import Embed as EmbedData
-    from discord.types.embed import EmbedType
+class Colour:
+    
+    __slots__ = ("value",)
 
-    T = TypeVar("T")
-    MaybeEmpty = Union[T, _EmptyEmbed]
+    def __init__(self, value: int):
+        if not isinstance(value, int):
+            raise TypeError(
+                f"Expected int parameter, received {value.__class__.__name__} instead."
+            )
 
-    class _EmbedFooterProxy(Protocol):
-        text: MaybeEmpty[str]
-        icon_url: MaybeEmpty[str]
+        self.value: int = value
 
-    class _EmbedMediaProxy(Protocol):
-        url: MaybeEmpty[str]
-        proxy_url: MaybeEmpty[str]
-        height: MaybeEmpty[int]
-        width: MaybeEmpty[int]
-
-    class _EmbedVideoProxy(Protocol):
-        url: MaybeEmpty[str]
-        height: MaybeEmpty[int]
-        width: MaybeEmpty[int]
-
-    class _EmbedProviderProxy(Protocol):
-        name: MaybeEmpty[str]
-        url: MaybeEmpty[str]
-
-    class _EmbedAuthorProxy(Protocol):
-        name: MaybeEmpty[str]
-        url: MaybeEmpty[str]
-        icon_url: MaybeEmpty[str]
-        proxy_icon_url: MaybeEmpty[str]
-
-E = TypeVar("E", bound="EmbedBuilder")
-
-class Colors: 
     """Return interger color for embed"""
 
     default: int = 0
@@ -116,50 +76,98 @@ class Colors:
     yellow = 0xFEE75C
     nitro_pink = 0xF47FFF
 
-class Colours(Colors):
-    """This class is a subclass of :class:`NewFunctionsPYC.Colors`"""
-
 def hexadecimalColor(hex: str):
-    return hexacolors.hexadecimal(str(hex))
+    return hexadecimal(str(hex))
 
 def rgbColor(r: int, g: int, b: int):
-    return hexacolors.rgb(f"{r},{g},{b}")
-
-class attributesEmbed:
-
-    dictEmb: dict[{str,str}] = {}
-    fields = []
-    title = ""
-    description = ""
-    footer = {}
-    author = {}
-    thumbnail = {}
-    color = Colors.default
-    image = {}
-    thumbinail = {}
-
-listAttributes = ["fields","title","description","footer","author","thumbnail","color", "image","thumbinail"]
+    return rgb(f"{r},{g},{b}")
 
 class EmbedBuilder:
-    """Embed contructor alike DiscordJs"""
+    
+    __slots__ = (
+        "_title",
+        "url",
+        "type",
+        "_timestamp",
+        "_colour",
+        "_footer",
+        "_image",
+        "_thumbnail",
+        "_video",
+        "_provider",
+        "_author",
+        "_fields",
+        "_description",
+    )
 
     def set_title(self, title: str):
-        attributesEmbed.title = title
+        self.title = title
+    
+    @property
+    def title(self):
+        return getattr(self,"_title", EmptyEmbed)
+
+    @title.setter
+    def title(self, value: str):
+        self._title = value
+        if self._title.__len__() > 4096:
+            raise TypeError("Description size larger than allowed 4096")
     
     def set_description(self, description: str):
-        attributesEmbed.description = description
+        self.description = description
 
+    @property
+    def description(self):
+        return getattr(self,"_description", EmptyEmbed)
+
+    @description.setter
+    def description(self, value: str):
+        self._description = value
+        if self._description.__len__() > 4096:
+            raise TypeError("Description size larger than allowed 4096")
+    
     def set_footer(self, text: str, icon_url: str = None):
 
-        attributesEmbed.footer["text"] = text
+        self._footer = {}
+        if text is not EmptyEmbed:
+            self._footer["text"] = str(text)
 
-        if icon_url is None:
-            attributesEmbed.footer["icon_url"] = icon_url
+        if icon_url is not EmptyEmbed:
+            self._footer["icon_url"] = str(icon_url)
+
+        return self
+
+    @property
+    def footer(self, text: str, icon_url: str = None):
+        ...
+    
+    @footer.setter
+    def footer(self, text: str, icon_url: str = None):
+        
+        if not self._footer["icon_url"].startswith("http"):
+            self._footer["icon_url"] = ""
+
+        if self._footer["text"].__len__() > 2048:
+            raise TypeError("Footer Text size larger than allowed 2048")
+
+    @property
+    def colour(self, value: int):
+        return getattr(self, "_colour", EmptyEmbed)
+
+    @colour.setter
+    def colour(self, value: int):
+        if isinstance(value, (Colour, _EmptyEmbed)):
+            self._colour = value
+        elif isinstance(value, int):
+            self._colour = Colour(value=value)
+        else:
+            raise TypeError(
+                "Expected discord.Colour, int, or Embed.Empty but received"
+                f" {value.__class__.__name__} instead."
+            )
+
+    def add_field():
+        ...
 
     def to_dict(self):
-
-        for i in listAttributes:
-            if getattr(attributesEmbed,i):
-                attributesEmbed.dictEmb[i] = getattr(attributesEmbed,i)
-
-        return attributesEmbed.dictEmb
+        return self.description, self.title
