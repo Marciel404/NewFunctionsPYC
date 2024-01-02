@@ -3,7 +3,7 @@ from NewFunctionsPYC import HybridCommand, hybridContext
 
 class HybridCommands(commands.Cog):
 
-    def __init__(self, bot:commands.Bot):
+    def __init__(self, bot: commands.Bot):
 
         self.bot = bot
 

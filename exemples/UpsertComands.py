@@ -2,7 +2,7 @@ import NewFunctionsPYC, discord
 
 client = NewFunctionsPYC.client("Token Bot Here")
 
-client.upsertCommand(
+client.upsertSlashCommand(
     name="teste",
     options=[
         NewFunctionsPYC.Option(
