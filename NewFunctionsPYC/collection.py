@@ -1,4 +1,5 @@
 from typing import Any
+from discord import Embed
 
 
 class _EmptyCollection:
@@ -37,15 +38,41 @@ class Collection():
 
     def set(self, name: str, value: Any) -> None:
 
+        """Add a item in collection
+
+        :param name: str
+        :param value: Any
+        :return:
+        """
+
         self.__Array[name] = value
     
     def get(self, name: str) -> Any:
+
+        """Return a item in collection
+
+        Args:
+        ------
+            name (str): name of item
+        Returns:
+            Any: Return any item in collection
+        """
 
         if self.__Array.get(name) and self.__Array.__len__() > 0: return self.__Array.get(name)
         if self.__Array.get(name) is None and self.__Array.__len__() > 0: return NotInCollection
         if self.__Array.__len__() == 0: return EmptyCollection
     
     def getIgnoreCase(self, name: str) -> Any:
+
+        """Return a item in collection ignorating Case
+
+        Not recommended if you have items with the same name with different case
+
+        :param name: str
+
+        Returns:
+            Any: Return any item in collection
+        """
 
         if self.__Array.__len__() == 0: return EmptyCollection
 
@@ -54,7 +81,7 @@ class Collection():
                 return self.get(item)
 
         return self.get(name)
-
+    
     def keys(self):
 
         Array: set = set()
@@ -63,12 +90,18 @@ class Collection():
 
         return Array if Array.__len__() > 0 else EmptyCollection
 
-    def delete(self, name: str) -> None:
+    def delete(self, name: str):
+
+        """ Delete a item in Collection
+
+        Raises:
+            NotInCollection: _description_
+        """
 
         try:
             del self.__Array[name]
         except AttributeError:
-            pass
+            raise NotInCollection
 
 
 class collection(Collection):
