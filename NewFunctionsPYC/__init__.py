@@ -13,10 +13,12 @@ To make it easier for new people to get started on pycord
 
 :my-server: https://discord.gg/2UtE8tMyh5 (Portuguese)
 """
+from importlib.metadata import PackageNotFoundError, version
 
 __name__ = "NewFunctionsPYC"
 __author__ = "Marciel404"
 __license__ = "MIT"
+__version__ = version("NewFunctionsPYC")
 
 from .embed import (
     EmbedBuilder,
