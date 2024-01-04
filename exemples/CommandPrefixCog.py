@@ -1,6 +1,7 @@
 from discord.ext import commands
 from NewFunctionsPYC import CommandPrefix, prefixContext
 
+
 class CommandsPrefix(commands.Cog):
 
     def __init__(self, bot:commands.Bot):
@@ -27,6 +28,6 @@ class CommandsPrefix(commands.Cog):
 
         await ctx.send("Hello World")
 
+
 def setup(bot:commands.Bot):
     bot.add_cog(CommandsPrefix(bot))
-
