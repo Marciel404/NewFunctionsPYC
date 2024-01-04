@@ -1,6 +1,7 @@
 from typing import Any
 from hexacolors import rgb, hexadecimal
 
+
 class _EmptyEmbed:
 
     def __bool__(self) -> bool:
@@ -13,6 +14,7 @@ class _EmptyEmbed:
         return 0
     
 EmptyEmbed = _EmptyEmbed()
+
 
 class EmbedProxy:
 
@@ -30,6 +32,7 @@ class EmbedProxy:
 
     def __getattr__(self, attr: str) -> _EmptyEmbed:
         return EmptyEmbed
+
 
 class Colour:
     
@@ -76,11 +79,26 @@ class Colour:
     yellow = 0xFEE75C
     nitro_pink = 0xF47FFF
 
+
+class Colours(Colour):
+    ...
+
+
+class Color(Colour):
+    ...
+
+
+class Colors(Colour):
+    ...
+
+
 def hexadecimalColor(hex: str):
     return hexadecimal(str(hex))
 
+
 def rgbColor(r: int, g: int, b: int):
     return rgb(f"{r},{g},{b}")
+
 
 class EmbedBuilder:
     

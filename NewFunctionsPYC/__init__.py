@@ -20,8 +20,10 @@ __license__ = "MIT"
 
 from .embed import (
     EmbedBuilder,
-    Colors,
+    Colour,
+    Color,
     Colours,
+    Colors,
     rgbColor,
     hexadecimalColor
 )
@@ -62,3 +64,11 @@ from .checks import (
     NoVote
 )
 
+from .collection import (
+    Collection,
+    collection
+)
+
+from .dinamic_import import (
+    dinamic_import
+)

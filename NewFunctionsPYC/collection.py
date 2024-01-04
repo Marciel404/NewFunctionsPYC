@@ -1,4 +1,11 @@
 from typing import Any
+from discord.ext.commands import CommandError
+
+
+class Raise(CommandError):
+
+    def __init__(self, message: str | None = None) -> None:
+        super().__init__(message)
 
 
 class _EmptyCollection:
@@ -99,8 +106,22 @@ class Collection():
 
         try:
             del self.__Array[name]
-        except AttributeError:
-            raise NotInCollection
+        except KeyError:
+            raise Raise(NotInCollection.__str__())
+    
+    def purge(self):
+
+        """ Delete all itens in collection
+
+        Raises:
+            NotInCollection: _description_
+        """
+
+        try:
+            for i in self.keys():
+                self.delete(i)
+        except TypeError:
+            raise Raise(EmptyCollection.__str__())
 
 
 class collection(Collection):
